@@ -1,0 +1,35 @@
+/* About Page Styling */
+
+.aboutHeader {
+    color: white;
+    font-family: 'Bree Serif', serif;
+    font-size: 36px;
+    text-align: center;
+}
+
+.devCardContainer {
+    text-align: center;
+}
+
+.devCardContainer .devCard {
+    display: inline;
+}
+
+.socialLink img {
+    height: 60px;
+    width: 60px;
+}
+
+.socialLinksList li {
+    display: inline;
+    padding: 0 7px;
+}
+
+.socialStyle {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.socialStyle ul {
+    padding: 0;
+}
