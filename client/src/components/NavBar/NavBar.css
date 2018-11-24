@@ -3,50 +3,36 @@
 .navbar {
     box-shadow: 0 2px 4px 0 rgba(38, 47, 42, 1.0), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
     border: 0px solid black;
-    background: white;
-    background: b-wekit-linear-gradient(bottom right, #692e4e), rgba(255, 255, 255, 1);
-    background: -o-linear-gradient(bottom right, #31708e, #8Fc1e3);
-    background: -moz-linear-gradient(bottom right, #31708e, #8Fc1e3);
-    background: linear-gradient(to bottom right, #e6a8f8, #a347af);
-    min-height: 90px;
+    /* background: b-wekit-linear-gradient(bottom right, #692e4e), rgba(255, 255, 255, 1); */
+    /* background: -o-linear-gradient(bottom right, #31708e, #8Fc1e3); */
+    /* background: -moz-linear-gradient(bottom right, #31708e, #8Fc1e3); */
+    background: linear-gradient(180deg, lightgray, white 21%, lightgray 69%);
 }
 
-/* NavBar Header and Logo Styling */
-
-#logo {
-    background: #7d3f95;  
-    /* border: 1px;
-    border-color: white; */
-    border-radius: 50%;
-    box-shadow: 0 2px 4px 0 rgb(241, 238, 238), 0 6px 15px 0 rgb(247, 244, 244);
-    cursor: pointer;
-    font-size: 10px;
-    height: 90px;
-    margin: 10px;
-    padding: 5px;
-    width: 90px;
-    }
-
-#logoText {
-    /* color: #fcfa84; */
-    /* font-family: 'Bree Serif', serif; */
-    /* font-family: 'Ultra', serif;
-    margin-left: 25px;
-    margin-top: 0px;
-    text-shadow: 3px 3px #262f2a; */
-    /* font-weight: bolder; */
-    /* font-style: oblique;         */
+#navBarLogoText {
     height: 80px;     
+    padding: 5px 5px 5px 10px;
+}
+
+.navBarAppHeader {
+    position: absolute;
+    right: 20px;
+}
+
+#navBarAppText {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-shadow: 1px 1px #262f2a;
 }
 
 /* NavBar Button\Link Styling */
 
 .navBarBtn {
-    background-color: rgb(252, 250, 132);
+    background-color: #00467f;
     border: none;
     border-radius: 4px;
     box-shadow: 3px 3px #262f2a;
-    color: black;
+    color: white;
     font-family: inherit;
     font-size: 11px;
     font-weight: bold;
@@ -57,8 +43,7 @@
 }
 
 .navBarBtn:hover {
-    background-color: #563D7C;
-    color: white;
+    background-color: #00547f;
 }
 
 .navBarBtn:focus {
@@ -82,132 +67,3 @@
 .navBarBtnWrapper a {
     padding: 0 10px;
 }
-
-@media screen and (max-width: 1024px) {
-
-    .navBarBtnWrapper {
-        margin: 0 auto;
-        margin-top: 95px;
-        position: unset;
-    }
-
-    .navBarHeader {
-        left: 90px;
-        position: absolute;
-        top: 25px;
-    }
-
-    .navBarLogo {
-        position: absolute;
-        top: 0;
-    }
-
-}
-
-@media screen and (max-width: 768px) {
-
-    .navBarBtnWrapper {
-        margin: 0 auto;
-        margin-top: 95px;
-        position: unset;
-    }
-
-    .navBarHeader {
-        left: 90px;
-        position: absolute;
-        top: 25px;
-    }
-
-    .navBarLogo {
-        position: absolute;
-        top: 0;
-    }
-
-}
-
-@media screen and (max-width: 420px) {
-
-    .navBarBtn {
-        font-size: 10px;
-        padding: 5px 0px;
-        width: 60px;
-    }
-
-    .navBarBtnWrapper {
-        margin: 0 auto;
-        margin-top: 95px;
-        position: unset;
-    }
-
-    .navBarBtnWrapper a {
-        margin-bottom: 3px;
-        padding: 0 3px;
-    }
-
-    .navBarHeader {
-        left: 90px;
-        position: absolute;
-        top: 25px;
-    }
-
-    .navBarLogo {
-        position: absolute;
-        top: 0;
-    }
-
-}
-
-@media screen and (max-width: 320px) {
-
-    .navBarBtn {
-        font-size: 9px;
-        padding: 5px 0px;
-        width: 50px;
-    }
-
-    .navBarBtnWrapper {
-        margin: 0 auto;
-        margin-top: 95px;
-        position: unset;
-    }
-
-    .navBarBtnWrapper a {
-        margin-bottom: 3px;
-        padding: 0 3px;
-    }
-
-    .navBarHeader {
-        left: 90px;
-        position: absolute;
-        top: 25px;
-    }
-
-    .navBarLogo {
-        position: absolute;
-        top: 0;
-    }
-
-}
-
-/* [Luis] Important: NavBar styling only!...
-
-.navbar, .sign_up, .about, footer, .login-form, .col-md-7{
-    box-shadow: 0 2px 4px 0 rgba(38, 47, 42, 1.0), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
-    border: 0px solid black;
-    background: white;
-    background: b-wekit-linear-gradient(bottom right, #692e4e), rgba(255, 255, 255, 1);
-    background: -o-linear-gradient(bottom right, #31708e, #8Fc1e3);
-    background: -moz-linear-gradient(bottom right, #31708e, #8Fc1e3);
-    background: linear-gradient(to bottom right, #e6a8f8, #a347af);
-    padding: 40px 31px 0 31px;
-}
-
-.btn {
-        background-color: rgb(252, 250, 132);
-        border-width: 0;
-        box-shadow: 3px 3px #262f2a;
-        color: black;
-        width: 125px;
-}
-
-... */

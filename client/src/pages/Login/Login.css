@@ -1,58 +1,5 @@
 /* Login Page Styling */
 
-
-.loginBtn {
-    background-color: rgb(252, 250, 132);
-    border: none;
-    border-radius: 4px;
-    box-shadow: 3px 3px #262f2a;
-    color: black;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: bold;
-    margin-top: 10px;
-    outline: none;
-    padding: 7px 0px;
-    text-transform: uppercase;
-    width: 100px;
-}
-
-.loginBtn:hover {
-    background-color: #563D7C;
-    color: white;
-}
-
-.loginBtn:focus {
-    outline: none;
-}
-
-.loginForm .form-group {
-    margin-right: 30px;
-}
-
-.loginForm .form-control {
-    height: 31px;
-}
-
-.loginForm {
-    color:#ffffff;
-    border-radius: 5%;
-    text-shadow: 1px 1px #262f2a;
-}
-
-.loginForm a {
-    color: white;
-    text-decoration: none;
-}
-
-.loginForm a:hover {
-    color: rgb(252, 250, 132);
-}
-
 #loginFormHeader { 
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif;
-    text-shadow: 1px 1px #262f2a;
+    margin: 20px 0;
 }
-
-/* Video Styling Moved to client/src/index.css */

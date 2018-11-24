@@ -1,24 +1,61 @@
-.App {
-  text-align: center;
+/* General App Styling */
+
+body {
+    background-color: lightslategray;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-shadow: 1px 1px #00467f;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+h1, h2, h3, h4, h5, h6 {
+    color: white;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+hr {
+    border-width: 2px;
 }
 
-.App-intro {
-  font-size: large;
+
+/* General Form Styling */
+
+.form-control {
+    border-radius: 4px;
+    box-shadow: unset;
+    font-size: 15px;
+    height: 27px;
+    padding: 5px 7px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.genFormSettings {
+    margin: 20px 20px;
+}
+
+label {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+
+/* General Button Styling */
+  
+.genAppBtn {
+    background-color: #00467f;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
+    outline: none;
+    padding: 10px 20px;
+    min-width: 125px;
+}
+  
+.genAppBtn:hover {
+    background-color: #00547f;
+}
+  
+.genAppBtn:focus {
+    outline: none;
 }

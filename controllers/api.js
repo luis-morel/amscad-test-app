@@ -6,6 +6,19 @@ const router = require("express").Router();
 //------------- API Routes (/api) -------------//
 //---------------------------------------------//
 
+// Add new user
+router.post("/users/createnew", (req, res) => {
+  console.log("/api/users/createnew 'req.body'", req.body);
+  db.Users.create(req.body)
+    .then((results) => {
+      res.json("/login");
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(error);
+    });
+});
+
 // Retrieve All Posts
 router.get("/posts/all", (req, res) => {
   db.Post.findAll({
@@ -46,7 +59,7 @@ router.get("/posts/category/:category/:userId?", (req, res) => {
 
 // Delete Post
 router.delete("/posts/delete/:id", (req, res) => {
-  console.log('test: ', req.params.id)
+  console.log('/api/posts/delete/:id test: ', req.params.id)
   db.Post.destroy(
     { where: { id: req.params.id } }
   )
@@ -56,12 +69,12 @@ router.delete("/posts/delete/:id", (req, res) => {
     });
 });
 
-// Create New Post
-router.post("/posts/new", (req, res) => {
-  db.Post.create({
-    body: req.body.body,
-    category: req.body.category,
-    UserId: req.user.id
+// Add new building
+router.post("/buildings/createnew", (req, res) => {
+  console.log("/api/buildings/createnew 'req.body'", req.body);
+  db.Buildings.create({
+    name: req.body.name,
+    location: req.body.location,
   })
     .then((results) => {
       res.end();

@@ -1,8 +1,8 @@
-import React from "react"
-import { Link, Redirect } from "react-router-dom"
+import React from "react";
+import { Redirect } from "react-router-dom";
 import { Col, Row, Wrapper } from "../../components/BootstrapGrid";
 import API from "../../utils/API";
-import "./Login.css"; // Login Page CSS
+import "./Login.css"; // Styling
 
 class Login extends React.Component {
 
@@ -47,25 +47,24 @@ class Login extends React.Component {
 
       <Wrapper>
         <Row>
-          <Col size="md" span="3"></Col>
-          <Col size="md" span="6">
-            <div className="loginForm">
-              <h2 id="loginFormHeader">Login Form</h2>
+          <Col size="md" span="4"></Col>
+          <Col size="md" span="4">
+            <div>
+              <h3 id="loginFormHeader">Welcome to AMS</h3>
               <form onSubmit={this.handleLogin}>
                 <div className="form-group">
-                  <label htmlFor="email">Email address</label>
+                  <label htmlFor="email">Email</label>
                   <input name="email" className="form-control" type="text" value={this.state.email} onChange={this.handleInputChange} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <input name="password" className="form-control" type="password" value={this.state.password} onChange={this.handleInputChange} />
                 </div>
-                <button className="loginBtn" type="submit">Login</button>
+                <button className="loginBtn genAppBtn" type="submit">LOGIN</button>
               </form>
-              <br />
-              <Link to="/"><p>Or Sign Up Here</p></Link>
             </div>
           </Col>
+          <Col size="md" span="4"></Col>
         </Row>
       </Wrapper>
 

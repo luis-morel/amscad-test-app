@@ -2,7 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import API from "./utils/API";
 import { NavBar } from "./components";
-import { About, Feed, Home, Login, Profile } from "./pages"
+import { AddNewBldg, AddNewUser, Login } from "./pages"
+// import { About, Feed, Home, Login, Profile } from "./pages"
+import "./App.css"; // Styling
+
 
 class App extends React.Component {
 
@@ -36,13 +39,14 @@ class App extends React.Component {
   handleLogout = () => {
     API.logout()
       .then(() => {
+        // Move setState outside callback?
         this.setState({
           user: null,
           loggedIn: false
         });
+        // Add a redirect to login page here
       });
   };
-
 
   setUser = (user) => {
     this.setState({
@@ -53,12 +57,12 @@ class App extends React.Component {
 
   render() {
 
-    // Forgo return() until loading === 'false'
+    // Forgo rendering until component mounts and loading is set to false
     if (this.state.loading === 'initial') {
       return <h2>Intializing...</h2>;
     }
 
-    // Forgo return() until loading === 'false'
+    // Forgo rendering until component mounts and loading is set to false
     if (this.state.loading === 'true') {
       return <h2>Loading...</h2>;
     }
@@ -67,13 +71,19 @@ class App extends React.Component {
 
       <Router>
         <div>
-          <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} />
-          <Route exact path="/" render={() => <Home loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route path='/feed' render={() => <Feed loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/about" render={() => <About loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/home" render={() => <Home loggedIn={this.state.loggedIn} user={this.state.user} />} />
+          <NavBar></NavBar>
+          {/* <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} /> */}
+          {/* <Route exact path="/" render={() => <Login setUser={this.setUser} loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          <Route exact path="/" render={() => <Login loggedIn={this.state.loggedIn} user={this.state.user} />} />
+          <Route exact path="/buildings/addnewbldg" render={() => <AddNewBldg loggedIn={this.state.loggedIn} user={this.state.user} />} />
+          <Route exact path="/users/addnewuser" render={() => <AddNewUser loggedIn={this.state.loggedIn} user={this.state.user} />} />
           <Route exact path="/login" render={() => <Login setUser={this.setUser} loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/profile" render={() => <Profile loggedIn={this.state.loggedIn} user={this.state.user} />} />
+          {/* <Route exact path="*" render={() => <Login loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          {/* <Route path='/feed' render={() => <Feed loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          {/* <Route exact path="/about" render={() => <About loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          {/* <Route exact path="/home" render={() => <Home loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          {/* <Route exact path="/profile" render={() => <Profile loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          {/* NEED TO ADD A CATCH ALL ROUTE FOR PAGES NOT FOUND */}
         </div>
       </Router>
 

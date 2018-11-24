@@ -3,7 +3,7 @@ const passport = require("../passport/passport");
 const router = require("express").Router();
 
 //---------------------------------------------//
-//------------ User Routes (/auth) ------------//
+//----- User Authentication Routes (/auth) ----//
 //---------------------------------------------//
 
 // Get Logged On User Info
@@ -27,17 +27,17 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-// Create New User
-router.post("/signup", (req, res) => {
-  console.log("/signup 'req.body'", req.body);
-  db.User.create(req.body)
-    .then((results) => {
-      res.json("/login");
-    })
-    .catch((error) => {
-      console.log(error);
-      res.json(error);
-    });
-});
+// Create New User (MOVED TO API ROUTES)
+// router.post("/createuser", (req, res) => {
+//   console.log("/createuser 'req.body'", req.body);
+//   db.User.create(req.body)
+//     .then((results) => {
+//       res.json("/login");
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.json(error);
+//     });
+// });
 
 module.exports = router;

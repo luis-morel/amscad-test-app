@@ -1,13 +1,12 @@
-
 [
-{
-    "id": 1,
-    "name": "Gripe",
-    "imageUrl": "../../images/HDLOGO_heart_main.svg"
-},
-{
-    "id": 2,
-    "name": "Gripe",
-    "imageUrl": "../../images/gripe.png"
-}
+    {
+        "id": 1,
+        "name": "AMS CAD + CAFM Solutions",
+        "imageUrl": "../../images/LogoWithText.png"
+    },
+    {
+        "id": 2,
+        "name": "AMS CAD + CAFM Solutions",
+        "imageUrl": "../../images/LogoNoText.png"
+    }
 ]

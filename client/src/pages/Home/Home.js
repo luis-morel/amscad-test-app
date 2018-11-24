@@ -2,7 +2,6 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import API from "../../utils/API";
 import { Col, Row, Wrapper } from "../../components/BootstrapGrid";
-import Mission from "../../components/Mission";
 import SignUpForm from "../../components/SignUpForm";
 import "./Home.css"; // Home Page CSS
 
@@ -65,9 +64,7 @@ class Home extends React.Component {
 
       <Wrapper>
         <Row>
-          <Col size="md" span="6">
-            <Mission />
-          </Col>
+          <Col size="md" span="3"></Col>
           <Col size="md" span="6">
             <SignUpForm
               handleInputChange={this.handleInputChange}
@@ -82,6 +79,7 @@ class Home extends React.Component {
               bio={this.state.bio}
             />
           </Col>
+          <Col size="md" span="3"></Col>
         </Row>
       </Wrapper>
 
