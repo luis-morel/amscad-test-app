@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     // Rooms table definition
     var Rooms = sequelize.define("Rooms", {
 
-        number: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false
         }

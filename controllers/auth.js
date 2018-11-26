@@ -27,17 +27,4 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-// Create New User (MOVED TO API ROUTES)
-// router.post("/createuser", (req, res) => {
-//   console.log("/createuser 'req.body'", req.body);
-//   db.User.create(req.body)
-//     .then((results) => {
-//       res.json("/login");
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.json(error);
-//     });
-// });
-
 module.exports = router;

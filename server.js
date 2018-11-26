@@ -38,7 +38,8 @@ app.get("*", function (req, res) {
 const PORT = process.env.PORT || 3001;
 
 // Connecting to MSSQL and then initializing Express web server
-db.sequelize.sync().then(function () {
+// {force: true} drops and recreates all tables REMOVE WHEN APP IS COMPLETE
+db.sequelize.sync({ force: true }).then(function () {
   app.listen(PORT, function () {
     console.log(`🌎 ==> Server listening on port: ${PORT}!`);
   });

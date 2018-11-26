@@ -4,8 +4,8 @@ module.exports = function (sequelize, DataTypes) {
     // Floors table definition
     var Floors = sequelize.define("Floors", {
 
-        number: {
-            type: DataTypes.INTEGER,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false
         }
 
