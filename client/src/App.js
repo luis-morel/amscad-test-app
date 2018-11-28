@@ -2,24 +2,25 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import API from "./utils/API";
 import { NavBar } from "./components";
-import { AddNewBldg, AddNewFloor, AddNewUser, Login } from "./pages"
+import { AddNewBldg, AddNewFloor, AddNewRoom, AddNewUser, Login } from "./pages"
 import "./App.css"; // Styling
-
 
 class App extends React.Component {
 
   state = {
+
     loading: "initial",
     loggedIn: false,
-    user: null
+    user: null,
+
   }
 
   componentDidMount() {
 
-    // Temporary setting
+    // Authentication temporarily disabled
     this.setState({ loading: "false" });
 
-    // Temporarily disabled (Re-enable when app is completed)
+    // Authentication Temporarily disabled
     // this.setState({ loading: "true" });
     // API.getLoggedOnUser()
     //   .then(res => {
@@ -38,7 +39,7 @@ class App extends React.Component {
     //       });
     //     };
     //   });
-    
+
   }
 
   handleLogout = () => {
@@ -60,14 +61,23 @@ class App extends React.Component {
     });
   };
 
+  titleCase = (str) => {
+    return str.toLowerCase()
+      .split(' ')
+      .map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase());
+      })
+      .join(' ');
+  }
+
   render() {
 
-    // Forgo rendering until component mounts and loading is set to false
+    // Prevents rendering until component mounts && loading === false
     if (this.state.loading === 'initial') {
       return <h2>Intializing...</h2>;
     }
 
-    // Forgo rendering until component mounts and loading is set to false
+    // Prevents rendering until component mounts && loading === false
     if (this.state.loading === 'true') {
       return <h2>Loading...</h2>;
     }
@@ -75,19 +85,62 @@ class App extends React.Component {
     return (
 
       <Router>
+
         <div>
           <NavBar></NavBar>
           {/* <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} /> */}
           {/* <Route exact path="/" render={() => <Login setUser={this.setUser} loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
-          <Route exact path="/" render={() => <Login loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/buildings/addnewbldg" render={() => <AddNewBldg loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/buildings/addnewfloor" render={() => <AddNewFloor loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/users/addnewuser" render={() => <AddNewUser loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          <Route exact path="/login" render={() => <Login setUser={this.setUser} loggedIn={this.state.loggedIn} user={this.state.user} />} />
-          {/* <Route exact path="*" render={() => <Login loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
-          {/* <Route exact path="/profile" render={() => <Profile loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          <Route exact path="/"
+            render={() =>
+              <Login
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+              />}
+          />
+          <Route exact path="/buildings/addnewbldg"
+            render={() =>
+              <AddNewBldg
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+                titleCase={this.titleCase}
+              />}
+          />
+          <Route exact path="/buildings/floors/addnewfloor/:bldgId"
+            render={({ match }) =>
+              <AddNewFloor
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+                params={match.params}
+                titleCase={this.titleCase}
+              />}
+          />
+          <Route exact path="/buildings/floors/rooms/addnewroom/:bldgId/:floorId"
+            render={({ match }) =>
+              <AddNewRoom
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+                params={match.params}
+                titleCase={this.titleCase}
+              />}
+          />
+          <Route exact path="/users/addnewuser"
+            render={() =>
+              <AddNewUser
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+              />}
+          />
+          <Route exact path="/login"
+            render={() =>
+              <Login
+                setUser={this.setUser}
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+              />}
+          />
           {/* NEED TO ADD A CATCH ALL ROUTE FOR PAGES NOT FOUND */}
         </div>
+
       </Router>
 
     ); // End of return()

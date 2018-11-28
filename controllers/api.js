@@ -1,5 +1,5 @@
 const db = require("../models");
-const passport = require("../passport/passport.js");
+// const passport = require("../passport/passport.js");
 const router = require("express").Router();
 
 //---------------------------------------------//
@@ -23,9 +23,22 @@ router.post("/buildings/createnewbldg", (req, res) => {
 });
 
 // Add new floor
-router.post("/buildings/createnewfloor", (req, res) => {
-  console.log(`\n/api/buildings/createnewfloor 'req.body' = ${JSON.parse(JSON.stringify(req.body))}\n`);
+router.post("/buildings/floors/createnewfloor", (req, res) => {
+  console.log(`\n/api/buildings/floors/createnewfloor 'req.body' = ${JSON.parse(JSON.stringify(req.body))}\n`);
   db.Floors.create(req.body)
+    .then((results) => {
+      res.end();
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(error);
+    })
+});
+
+// Add new room
+router.post("/buildings/floors/rooms/createnewroom", (req, res) => {
+  console.log(`\n/api/buildings/floors/rooms/createnewroom 'req.body' = ${JSON.parse(JSON.stringify(req.body))}\n`);
+  db.Rooms.create(req.body)
     .then((results) => {
       res.end();
     })
@@ -48,9 +61,51 @@ router.post("/users/createnewuser", (req, res) => {
     });
 });
 
-// Retrieve floors in building
-router.get("/buildings/listfloors/:bldgId", (req, res) => {
-  console.log(`\n\n/api/buildings/listfloors 'req.params' = ${JSON.stringify(req.params)}\n\n`)
+// Retrieve all buildings
+router.get("/buildings/listall", (req, res) => {
+  db.Buildings.findAll({
+    order: [['name']]
+  })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(error);
+    });
+});
+
+// Retrieve one building
+router.get("/buildings/findone/:bldgId", (req, res) => {
+  db.Buildings.find({
+    where: { id: req.params.bldgId }
+  })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(error);
+    });
+});
+
+// Retrieve one floor
+router.get("/buildings/floors/findone/:floorId", (req, res) => {
+  db.Floors.find({
+    where: { id: req.params.floorId }
+  })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(error);
+    });
+});
+
+// Retrieve all floors in one building
+router.get("/buildings/floors/listall/:bldgId", (req, res) => {
+  console.log(`\n\n/api/buildings/floors/listall 'req.params' = ${JSON.stringify(req.params)}\n\n`)
     db.Floors.findAll({
       where: { BuildingId: req.params.bldgId},
       order: [['name']]
@@ -64,18 +119,20 @@ router.get("/buildings/listfloors/:bldgId", (req, res) => {
       });
 });
 
-// Retrieve all buildings
-router.get("/buildings/listall", (req, res) => {
-  db.Buildings.findAll({
-    order: [['name']]
-  })
-    .then((data) => {
-      res.json(data);
+// Retrieve all rooms on building floor
+router.get("/buildings/floors/listrooms/:floorId", (req, res) => {
+  console.log(`\n\n/api/buildings/floors/listrooms 'req.params' = ${JSON.stringify(req.params)}\n\n`)
+    db.Rooms.findAll({
+      where: { FloorId: req.params.floorId},
+      order: [['name']]
     })
-    .catch((error) => {
-      console.log(error);
-      res.json(error);
-    });
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.json(error);
+      });
 });
 
 module.exports = router;

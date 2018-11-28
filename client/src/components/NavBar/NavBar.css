@@ -10,7 +10,8 @@
 }
 
 #navBarLogoText {
-    height: 80px;     
+    height: 80px;
+    min-height: 80px;
     padding: 5px 5px 5px 10px;
 }
 

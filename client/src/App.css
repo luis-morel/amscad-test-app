@@ -20,6 +20,10 @@ hr {
 
 /* General Form Styling */
 
+.genFormSettings {
+    margin: 20px;
+}
+
 .form-control {
     border-radius: 4px;
     box-shadow: unset;
@@ -28,13 +32,13 @@ hr {
     padding: 5px 7px;
 }
 
-.genFormSettings {
-    margin: 20px;
-}
-
 label {
     font-size: 15px;
     margin-bottom: 3px;
+}
+
+input {
+    text-transform: capitalize;
 }
 
 .selectStyling {
