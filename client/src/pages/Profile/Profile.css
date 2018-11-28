@@ -1,8 +1,0 @@
-/* Profile Page Styling */
-
-.userInfoContainer {
-    background: linear-gradient(to top, #e6a8f8, #c173d0);
-    box-shadow: 0 2px 4px 0 rgba(38, 47, 42, 1.0), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 4px;
-    padding: 7%;
-}
