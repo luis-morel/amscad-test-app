@@ -1,6 +1,6 @@
 import React from 'react';
 import "./NavBar.css"; // Styling
-import Logo from "./Logo.json";
+import Logo from "./Logo.json"; // AMS CAD Logo
 
 const NavBar = () => {
 

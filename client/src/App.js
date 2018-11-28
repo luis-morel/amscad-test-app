@@ -87,14 +87,13 @@ class App extends React.Component {
       <Router>
 
         <div>
-          <NavBar></NavBar>
-          {/* <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} /> */}
-          {/* <Route exact path="/" render={() => <Login setUser={this.setUser} loggedIn={this.state.loggedIn} user={this.state.user} />} /> */}
+          <NavBar/>
           <Route exact path="/"
             render={() =>
               <Login
                 loggedIn={this.state.loggedIn}
                 user={this.state.user}
+                setUser={this.setUser}
               />}
           />
           <Route exact path="/buildings/addnewbldg"
@@ -138,7 +137,7 @@ class App extends React.Component {
                 user={this.state.user}
               />}
           />
-          {/* NEED TO ADD A CATCH ALL ROUTE FOR PAGES NOT FOUND */}
+          {/* NEED TO ADD A CATCH-ALL ROUTE FOR PAGES NOT FOUND */}
         </div>
 
       </Router>
