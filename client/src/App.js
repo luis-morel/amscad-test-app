@@ -1,8 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
 import API from "./utils/API";
 import { NavBar } from "./components";
-import { AddNewBldg, AddNewFloor, AddNewRoom, AddNewUser, Login } from "./pages"
+import {
+  AddNewBldg,
+  AddNewFloor,
+  AddNewRoom,
+  AddNewUser,
+  Dashboard,
+  Login
+} from "./pages"
 import "./App.css"; // Styling
 
 class App extends React.Component {
@@ -13,44 +25,29 @@ class App extends React.Component {
     loggedIn: false,
     user: null,
 
+    buildings: []
+
   }
 
   componentDidMount() {
-
-    // Authentication temporarily disabled
-    this.setState({ loading: "false" });
-
-    // Authentication Temporarily disabled
-    // this.setState({ loading: "true" });
-    // API.getLoggedOnUser()
-    //   .then(res => {
-    //     if (res.data.user) {
-    //       this.setState({
-    //         loading: "false",
-    //         loggedIn: true,
-    //         user: res.data.user
-    //       });
-    //     }
-    //     else {
-    //       this.setState({
-    //         loading: "false",
-    //         loggedIn: false,
-    //         user: null
-    //       });
-    //     };
-    //   });
-
-  }
-
-  handleLogout = () => {
-    API.logout()
-      .then(() => {
-        // Move setState outside callback?
-        this.setState({
-          user: null,
-          loggedIn: false
-        });
-        // Add a redirect to login page here
+    // Maintaining user session
+    this.setState({ loading: "true" });
+    API.getLoggedOnUser()
+      .then(res => {
+        if (res.data.user) {
+          this.setState({
+            loading: "false",
+            loggedIn: true,
+            user: res.data.user
+          });
+        }
+        else {
+          this.setState({
+            loading: "false",
+            loggedIn: false,
+            user: null
+          });
+        };
       });
   };
 
@@ -72,12 +69,12 @@ class App extends React.Component {
 
   render() {
 
-    // Prevents rendering until component mounts && loading === false
+    // Prevents rendering until user info is retrieved
     if (this.state.loading === 'initial') {
       return <h2>Intializing...</h2>;
     }
 
-    // Prevents rendering until component mounts && loading === false
+    // Prevents rendering until user info is retrieved
     if (this.state.loading === 'true') {
       return <h2>Loading...</h2>;
     }
@@ -87,57 +84,75 @@ class App extends React.Component {
       <Router>
 
         <div>
-          <NavBar/>
-          <Route exact path="/"
-            render={() =>
-              <Login
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-                setUser={this.setUser}
-              />}
-          />
-          <Route exact path="/buildings/addnewbldg"
-            render={() =>
-              <AddNewBldg
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-                titleCase={this.titleCase}
-              />}
-          />
-          <Route exact path="/buildings/floors/addnewfloor/:bldgId"
-            render={({ match }) =>
-              <AddNewFloor
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-                params={match.params}
-                titleCase={this.titleCase}
-              />}
-          />
-          <Route exact path="/buildings/floors/rooms/addnewroom/:bldgId/:floorId"
-            render={({ match }) =>
-              <AddNewRoom
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-                params={match.params}
-                titleCase={this.titleCase}
-              />}
-          />
-          <Route exact path="/users/addnewuser"
-            render={() =>
-              <AddNewUser
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-              />}
-          />
-          <Route exact path="/login"
-            render={() =>
-              <Login
-                setUser={this.setUser}
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-              />}
-          />
-          {/* NEED TO ADD A CATCH-ALL ROUTE FOR PAGES NOT FOUND */}
+          <NavBar />
+          <Switch>
+            <Route
+              exact path="/"
+              render={() =>
+                <Login
+                  loggedIn={this.state.loggedIn}
+                  user={this.state.user}
+                  setUser={this.setUser}
+                />}
+            />
+            <Route
+              exact path="/buildings/addnewbldg"
+              render={({ history }) =>
+                <AddNewBldg
+                  loggedIn={this.state.loggedIn}
+                  user={this.state.user}
+                  history={history}
+                  titleCase={this.titleCase}
+                />}
+            />
+            <Route
+              exact path="/buildings/floors/addnewfloor/:bldgId"
+              render={({ history, match }) =>
+                <AddNewFloor
+                  loggedIn={this.state.loggedIn}
+                  user={this.state.user}
+                  history={history}
+                  params={match.params}
+                  titleCase={this.titleCase}
+                />}
+            />
+            <Route
+              exact path="/buildings/floors/rooms/addnewroom/:bldgId/:floorId"
+              render={({ history, match }) =>
+                <AddNewRoom
+                  loggedIn={this.state.loggedIn}
+                  user={this.state.user}
+                  history={history}
+                  params={match.params}
+                  titleCase={this.titleCase}
+                />}
+            />
+            <Route
+              exact path="/dashboard"
+              render={({ history }) =>
+                <Dashboard
+                  loggedIn={this.state.loggedIn}
+                  user={this.state.user}
+                  history={history}
+                />}
+            />
+            <Route
+              exact path="/users/addnewuser"
+              render={({ history }) =>
+                <AddNewUser
+                  loggedIn={this.state.loggedIn}
+                  user={this.state.user}
+                  history={history}
+                  titleCase={this.titleCase}
+                />}
+            />
+            {/* All non-matching routes are redirected to dashboard */}
+            <Route
+              render={() =>
+                <Redirect to="/dashboard" />
+              }
+            />
+          </Switch>
         </div>
 
       </Router>
@@ -146,6 +161,6 @@ class App extends React.Component {
 
   }; // End of render()
 
-}; // End of App.js class component
+}; // End of App class component
 
 export default App;

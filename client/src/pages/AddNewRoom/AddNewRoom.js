@@ -1,7 +1,14 @@
 import React from "react";
-// import { Redirect } from "react-router-dom";
+import {
+  Link,
+  Redirect
+} from "react-router-dom";
 import API from "../../utils/API";
-import { Col, Row, Wrapper } from "../../components/BootstrapGrid";
+import {
+  Col,
+  Row,
+  Wrapper
+} from "../../components/BootstrapGrid";
 import "./AddNewRoom.css" // Styling
 
 class AddNewRoom extends React.Component {
@@ -22,21 +29,19 @@ class AddNewRoom extends React.Component {
 
   }
 
-  // Authentication redirect temporarily disabled
   componentDidMount = () => {
-    //   if (!this.state.loggedIn) {
-    //     // Redirect to "/" if user not logged in
-    //     return <Redirect to="/" />
-    this.getActiveBuilding(this.state.buildingId);
-    this.getActiveFloor(this.state.floorId);
-    this.getRoomList(this.state.floorId);
-    console.log(`\nAddNewRooms props = ${JSON.stringify(this.props)}`);
+    if (this.state.loggedIn) {
+      this.getActiveBuilding(this.state.buildingId);
+      this.getActiveFloor(this.state.floorId);
+      this.getRoomList(this.state.floorId);
+    }
   };
 
   duplicateCheck = (newRoomName) => {
     let list = this.state.roomList;
     for (let i = 0; i < list.length; i++) {
-      if (newRoomName === list[i].name) return true;
+      if (newRoomName === list[i].name)
+        return true;
     };
     return false;
   }
@@ -44,7 +49,7 @@ class AddNewRoom extends React.Component {
   getActiveBuilding = (bldgId) => {
     API.getOneBldg(bldgId)
       .then((results) => {
-        console.log(`\ngetActiveBuilding() results = ${JSON.stringify(results)}\n`);
+        console.log(results);
         this.setState({
           building: results.data,
           buildingName: results.data.name
@@ -55,7 +60,7 @@ class AddNewRoom extends React.Component {
   getActiveFloor = (floorId) => {
     API.getOneFloor(floorId)
       .then((results) => {
-        console.log(`\ngetActiveFloor() 'results' = ${JSON.stringify(results)}\n`);
+        console.log(results);
         this.setState({
           floor: results.data,
           floorName: results.data.name
@@ -66,7 +71,7 @@ class AddNewRoom extends React.Component {
   getRoomList = (floorId) => {
     API.getRoomsInFloor(floorId)
       .then((results) => {
-        console.log(`getRoomsInFloor() results: ${JSON.stringify(results)}`);
+        console.log(results);
         this.setState({ roomList: results.data });
       });
   }
@@ -74,6 +79,13 @@ class AddNewRoom extends React.Component {
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  };
+
+  handleLogOut = () => {
+    API.logout()
+      .then(() => {
+        this.props.history.push("/");
+      })
   };
 
   handleNewRoom = event => {
@@ -101,8 +113,9 @@ class AddNewRoom extends React.Component {
 
   render() {
 
-    // Authentication redirect temporarily disabled
-    // if (!this.state.loggedIn) return <Redirect to="/" />
+    // Authentication redirect
+    if (!this.state.loggedIn)
+      return <Redirect to="/" />
 
     return (
 
@@ -110,9 +123,22 @@ class AddNewRoom extends React.Component {
         <Row>
 
           <Col size="md" span="12">
-            <div>
-              <h3>Building Administration - Add New Room</h3>
-              <hr />
+            <div className="pageHeaderContainer">
+              <div className="pageHeaderText">
+                <h3>Building Administration - Add New Room</h3>
+              </div>
+              <div className="pageHeaderNavBtnContainer">
+                <Link
+                  to={{ pathname: `/buildings/floors/addnewfloor/${this.state.buildingId}` }}
+                >
+                  <button className="pageHeaderNavBtn">Back To Floors</button>
+                </Link>
+                <Link to="/dashboard">
+                  <button className="pageHeaderNavBtn">Back To Dashboard</button>
+                </Link>
+                <button className="pageHeaderNavBtn" onClick={this.handleLogOut}>Log Out</button>
+              </div>
+              <hr className="pageHeaderHr" />
             </div>
           </Col>
 
@@ -136,7 +162,7 @@ class AddNewRoom extends React.Component {
 
                 <div className="form-group">
                   <label htmlFor="roomName">Room Name</label>
-                  <input name="roomName" className="form-control" placeholder="Room Name..." onChange={this.handleInputChange} value={this.state.roomName} type="roomName" />
+                  <input name="roomName" className="capitalized form-control" placeholder="Room Name..." onChange={this.handleInputChange} value={this.state.roomName} type="roomName" />
                 </div>
 
                 <div>
@@ -177,6 +203,6 @@ class AddNewRoom extends React.Component {
 
   }; // End of render()
 
-}; // End of UserAdmin class component
+}; // End of AddNewRoom class component
 
 export default AddNewRoom;

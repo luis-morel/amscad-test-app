@@ -9,6 +9,14 @@ body {
     text-shadow: 1px 1px #00467f;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: white;
 }
@@ -16,7 +24,6 @@ h1, h2, h3, h4, h5, h6 {
 hr {
     border-width: 2px;
 }
-
 
 /* General Form Styling */
 
@@ -37,7 +44,7 @@ label {
     margin-bottom: 3px;
 }
 
-input {
+.capitalized {
     text-transform: capitalize;
 }
 
@@ -75,4 +82,38 @@ option:disabled {
   
 .genAppBtn:focus {
     outline: none;
+}
+
+/* Navigation Styling */
+
+.pageHeaderText {
+    float: left;
+}
+
+.pageHeaderNavBtnContainer {
+    float: right;
+}
+
+.pageHeaderNavBtn {
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 15px;
+    margin: 17px 0 0 10px;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.pageHeaderNavBtn:hover {
+    background-color: #00547f;
+}
+  
+.pageHeaderNavBtn:focus {
+    outline: none;
+}
+
+.pageHeaderHr {
+    overflow: auto;
+    clear: both;
 }

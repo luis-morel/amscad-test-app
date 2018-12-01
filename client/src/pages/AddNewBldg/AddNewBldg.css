@@ -19,7 +19,7 @@
 }
 
 .buildingDisplayBtn {
-    background-color: #00467f;
+    background-color: lightskyblue; /* #00467f; */
     border: none;
     border-radius: 4px;
     color: white;

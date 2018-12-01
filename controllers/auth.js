@@ -1,4 +1,3 @@
-const db = require("../models");
 const passport = require("../passport/passport");
 const router = require("express").Router();
 
@@ -6,7 +5,7 @@ const router = require("express").Router();
 //----- User Authentication Routes (/auth) ----//
 //---------------------------------------------//
 
-// Get Logged On User Info
+// Get logged on user nfo
 router.get("/getuser", (req, res) => {
   if (req.user) {
     res.json({ user: req.user });
@@ -15,13 +14,13 @@ router.get("/getuser", (req, res) => {
   }
 });
 
-// Log On User
+// Log user in
 router.post("/login", passport.authenticate("local"), (req, res) => {
   console.log("/auth/login passed");
   res.json({ user: req.user });
 });
 
-// Log Out User
+// Log user out
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');

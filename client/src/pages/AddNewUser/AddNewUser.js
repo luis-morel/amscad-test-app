@@ -1,7 +1,14 @@
 import React from "react";
-// import { Redirect } from "react-router-dom";
+import {
+  Link,
+  Redirect
+} from "react-router-dom";
 import API from "../../utils/API";
-import { Col, Row, Wrapper } from "../../components/BootstrapGrid";
+import {
+  Col,
+  Row,
+  Wrapper
+} from "../../components/BootstrapGrid";
 
 class AddNewUser extends React.Component {
 
@@ -18,28 +25,30 @@ class AddNewUser extends React.Component {
 
   }
 
-  // Re-enable once all pages/components are completed
-  // componentDidMount = () => {
-  //   if (!this.state.loggedIn) {
-  //     // Redirect to "/" if user not logged in
-  //     return <Redirect to="/" />
-  // }
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value })
   };
 
+  handleLogOut = () => {
+    API.logout()
+      .then(() => {
+        this.props.history.push("/");
+      })
+  };
+
   handleNewUser = event => {
     event.preventDefault();
-    const newName = event.target.name.value;
-    const newTitle = event.target.title.value;
+    let newName = event.target.name.value;
+    let newTitle = event.target.title.value;
     const newUserImageUrl = event.target.userImageUrl.value;
     const newEmail = event.target.email.value;
     const newPassword = event.target.password.value;
 
     // Input validation
     if (newName && newTitle && newUserImageUrl && newEmail && newPassword) {
+      newName = this.props.titleCase(newName);
+      newTitle = this.props.titleCase(newTitle);
       API.addNewUser({
         name: newName,
         title: newTitle,
@@ -63,31 +72,44 @@ class AddNewUser extends React.Component {
 
   render() {
 
-    // Re-enable once all components/pages are completed
-    // if (!this.state.loggedIn) return <Redirect to="/" />
+    // Authentication redirect
+    if (!this.state.loggedIn)
+      return <Redirect to="/" />
 
     return (
 
       <Wrapper>
         <Row>
+
           <Col size="md" span="12">
-            <div>
-              <h3>User Administration - Add New User</h3>
-              <hr></hr>
+            <div className="pageHeaderContainer">
+              <div className="pageHeaderText">
+                <h3>User Administration - Add New User</h3>
+              </div>
+              <div className="pageHeaderNavBtnContainer">
+                <Link to="/dashboard">
+                  <button className="pageHeaderNavBtn">Back To Dashboard</button>
+                </Link>
+                <button className="pageHeaderNavBtn" onClick={this.handleLogOut}>Log Out</button>
+              </div>
+              <hr className="pageHeaderHr" />
             </div>
           </Col>
+
         </Row>
+
         <Row>
+
           <Col size="md" span="4">
             <div className="genFormSettings">
               <form onSubmit={this.handleNewUser}>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
-                  <input name="name" className="form-control" placeholder="Name..." onChange={this.handleInputChange} value={this.state.name} type="name" required />
+                  <input name="name" className="capitalized form-control" placeholder="Name..." onChange={this.handleInputChange} value={this.state.name} type="name" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="title">Title</label>
-                  <input name="title" className="form-control" placeholder="Title..." onChange={this.handleInputChange} value={this.state.title} type="title" required />
+                  <input name="title" className="capitalized form-control" placeholder="Title..." onChange={this.handleInputChange} value={this.state.title} type="title" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="userImageUrl">Profile Image Url</label>
@@ -107,8 +129,7 @@ class AddNewUser extends React.Component {
               </form>
             </div>
           </Col>
-          <Col size="md" span="4"></Col>
-          <Col size="md" span="2"></Col>
+
         </Row>
       </Wrapper>
 
@@ -116,6 +137,6 @@ class AddNewUser extends React.Component {
 
   }; // End of render()
 
-}; // End of UserAdmin class component
+}; // End of AddNewUser class component
 
 export default AddNewUser;

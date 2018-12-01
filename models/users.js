@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
   };
 
   // Hash-encrypt password for new user accounts
-  Users.hook("beforeCreate", function (user) {
+  Users.addHook("beforeCreate", function (user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
   });
 

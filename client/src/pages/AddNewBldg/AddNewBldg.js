@@ -1,8 +1,14 @@
 import React from "react";
-// import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  Redirect
+} from "react-router-dom";
 import API from "../../utils/API";
-import { Col, Row, Wrapper } from "../../components/BootstrapGrid";
+import {
+  Col,
+  Row,
+  Wrapper
+} from "../../components/BootstrapGrid";
 import "./AddNewBldg.css" // Styling
 
 class AddNewBldg extends React.Component {
@@ -23,12 +29,9 @@ class AddNewBldg extends React.Component {
 
   }
 
-  // Authentication redirect temporarily disabled
   componentDidMount = () => {
-    //   if (!this.state.loggedIn) {
-    //     // Redirect to "/" if user not logged in
-    //     return <Redirect to="/" />
-    this.getBuildingList();
+    if (this.state.loggedIn)
+      this.getBuildingList();
   }
 
   duplicateCheck = (name, location) => {
@@ -44,7 +47,7 @@ class AddNewBldg extends React.Component {
   getBuildingList = () => {
     API.getAllBldgs()
       .then((results) => {
-        console.log(`\ngetBuildingList() results = ${JSON.stringify(results)}\n`);
+        console.log(results);
         this.setState({ buildingList: results.data });
       });
   };
@@ -52,6 +55,13 @@ class AddNewBldg extends React.Component {
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  };
+
+  handleLogOut = () => {
+    API.logout()
+      .then(() => {
+        this.props.history.push("/");
+      })
   };
 
   handleNewBldg = event => {
@@ -83,8 +93,9 @@ class AddNewBldg extends React.Component {
 
   render() {
 
-    // Authentication redirect temporarily disabled
-    // if (!this.state.loggedIn) return <Redirect to="/" />
+    // Authentication redirect
+    if (!this.state.loggedIn)
+      return <Redirect to="/" />
 
     return (
 
@@ -92,9 +103,18 @@ class AddNewBldg extends React.Component {
         <Row>
 
           <Col size="md" span="12">
-            <div>
-              <h3>Building Administration - Add New Building</h3>
-              <hr />
+            <div className="pageHeaderContainer">
+              <div className="pageHeaderText">
+                <h3>Building Administration - Add New Building</h3>
+              </div>
+              <div className="pageHeaderNavBtnContainer">
+                <Link to="/dashboard">
+                  <button className="pageHeaderNavBtn">Back To Dashboard</button>
+                </Link>
+                <button className="pageHeaderNavBtn" onClick={this.handleLogOut}>Log Out</button>
+              </div>
+
+              <hr className="pageHeaderHr" />
             </div>
           </Col>
 
@@ -108,7 +128,7 @@ class AddNewBldg extends React.Component {
 
                 <div className="form-group">
                   <label htmlFor="name">Building Name</label>
-                  <input name="name" className="form-control" placeholder="Building Name..." onChange={this.handleInputChange} value={this.state.name} type="name" required />
+                  <input name="name" className="capitalized form-control" placeholder="Building Name..." onChange={this.handleInputChange} value={this.state.name} type="name" required />
                 </div>
 
                 <div className="form-group">
@@ -146,7 +166,6 @@ class AddNewBldg extends React.Component {
                       <Link
                         key={building.id}
                         to={{ pathname: `/buildings/floors/addnewfloor/${building.id}` }}
-                        target="_blank"
                       >
                         <button className="buildingDisplayBtn">
                           {building.name}, {building.location}
@@ -166,6 +185,6 @@ class AddNewBldg extends React.Component {
 
   }; // End of render()
 
-}; // End of UserAdmin class component
+}; // End of AddNewBldg class component
 
 export default AddNewBldg;

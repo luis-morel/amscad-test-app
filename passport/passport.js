@@ -8,26 +8,23 @@ passport.use(new LocalStrategy(
   },
   function (email, password, done) {
 
-    console.log("passport.js > passed!");
-    db.User.findOne({
+    console.log("\n<<< Passport.js >>>\n");
+    db.Users.find({
       where: { email: email }
     })
-      .then((dbUser) => {
+      .then((user) => {
 
-        console.log("passport.js 'dbUser': ", dbUser);
-        if (!dbUser) return done(null, false, { message: 'Incorrect username.' });
-        if (!dbUser.validPassword(password)) return done(null, false, { message: 'Incorrect password.' });
+        console.log("\nPassport.js >>> user info: ", user);
+        if (!user) return done(null, false, { message: 'Incorrect username.' });
+        if (!user.validPassword(password)) return done(null, false, { message: 'Incorrect password.' });
 
-        // If login successful, return user info
+        // Upon successful login, return user info
         return done(null, {
-          id: dbUser.id,
-          name: dbUser.name,
-          email: dbUser.email,
-          occupation: dbUser.occupation,
-          relationshipType: dbUser.relationshipType,
-          location: dbUser.location,
-          imageUrl: dbUser.imageUrl,
-          bio: dbUser.bio
+          id: user.id,
+          name: user.name,
+          title: user.title,
+          photo: user.userImageUrl,
+          email: user.email
         });
 
       });

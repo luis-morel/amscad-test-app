@@ -1,22 +1,21 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { Col, Row, Wrapper } from "../../components/BootstrapGrid";
+import {
+  Col,
+  Row,
+  Wrapper
+} from "../../components/BootstrapGrid";
 import API from "../../utils/API";
 import "./Login.css"; // Styling
 
 class Login extends React.Component {
 
   state = {
+
     email: "",
     password: "",
-    redirectTo: ""
-  }
+    loggedIn: false
 
-  // Set 'redirectTo' to home page or dashboard if user logged in
-  componentWillMount = () => {
-    if (this.props.loggedIn) {
-      this.setState({ redirectTo: "/" });
-    }
   }
 
   handleInputChange = event => {
@@ -26,22 +25,21 @@ class Login extends React.Component {
 
   handleLogin = event => {
     event.preventDefault();
-    API.login({ email: this.state.email, password: this.state.password })
+    API.login({
+      email: this.state.email,
+      password: this.state.password
+    })
       .then((res) => {
-        this.props.setUser(res.data.user)
-        this.setState({
-          // Set 'redirectTo' to home page or dashboard if user logged in
-          redirectTo: "/"
-        });
+        this.props.setUser(res.data.user);
+        this.setState({ loggedIn: true });
       });
-  }
+  };
 
   render() {
 
-    // Redirect to home page or dashboard if user logged in
-    if (this.state.redirectTo) {
-      return <Redirect to={this.state.redirectTo} />
-    }
+    // Authentication redirect
+    if (this.state.loggedIn) 
+      return <Redirect to="/dashboard" />    
 
     return (
 
@@ -66,7 +64,7 @@ class Login extends React.Component {
                 </div>
 
                 <button className="loginBtn genAppBtn" type="submit">LOGIN</button>
-                
+
               </form>
             </div>
           </Col>
@@ -78,6 +76,6 @@ class Login extends React.Component {
 
   }; // End of render()
 
-}; // End of Class Login Component
+}; // End of Login class component
 
 export default Login;
