@@ -1,7 +1,7 @@
 {
   "name": "amscad-test-app",
   "version": "1.0.0",
-  "description": "Scheduling App with MSSQL Datastore",
+  "description": "Facilities Management App with MSSQL Datastore",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
